@@ -64,7 +64,7 @@ A comprehensive and user-friendly ATM system implemented in C++ that allows user
 2. Once logged in, use the menu to perform various banking operations.
 3. Admin users can access additional options to create or delete accounts.
 
-### Conributing
+## Conributing
 If you'd like to contribute to this project, please follow these steps:
 - Fork the repository to your GitHub account.
 - Create a new branch with a descriptive name for your feature or bug fix.
@@ -72,8 +72,8 @@ If you'd like to contribute to this project, please follow these steps:
 - Push your changes to your forked repository.
 - Submit a pull request to the main repository, detailing the changes you've made.
 
-### License
+## License
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
-### Acknowledgments
+## Acknowledgments
 Special thanks to Teaching Assisntats and Professors for asssisting us with this project.
