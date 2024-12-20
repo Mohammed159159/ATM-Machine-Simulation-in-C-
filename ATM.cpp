@@ -24,6 +24,11 @@ public:
         cout << "Your NEW account balance is: " << balance << endl;
 
     }
+    void withdraw(long b) {
+    balance -= b;
+    cout << "Your NEW account balance is: " << balance << endl;
+
+}
 };
 
 
