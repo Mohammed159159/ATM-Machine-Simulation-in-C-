@@ -4,27 +4,27 @@ using namespace std;
 
 class Account {
 private:
-    long accountNum;
+    double accountNum;
     int pin;
-    long balance;
+    double balance;
 
 public:
-    Account(long AccountNum, int Pin, long Balance) {
+    Account(double AccountNum, int Pin, double Balance) {
         accountNum = AccountNum;
         pin = Pin;
         balance = Balance;
     }
 
-    void checkBalance() {
+    void checkBalance() const {
         cout << "Your account balance is: " << balance << endl;
     }
 
-    void deposit(long b) {
+    void deposit(double b) {
         balance += b;
         cout << "Your NEW account balance is: " << balance << endl;
 
     }
-    void withdraw(long b) {
+    void withdraw(double b) {
     balance -= b;
     cout << "Your NEW account balance is: " << balance << endl;
     }
