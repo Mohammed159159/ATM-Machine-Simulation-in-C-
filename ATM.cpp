@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -14,9 +15,15 @@ public:
         pin = Pin;
         balance = Balance;
     }
-
-    void checkBalance() const {
-        cout << "Your account balance is: " << balance << endl;
+    double getBalance() const
+    {
+        return balance;
+    }
+    double getAccountNum() const {
+        return accountNum;
+    }
+    bool verifyPin(int inputPin) const {
+        return pin == inputPin;
     }
 
     void deposit(double b) {
@@ -66,11 +73,59 @@ public:
 };
 
 
+bool login_System(double input_accountNum , int input_pin , const vector<Account>& account_db)
+{
+
+    for (int i = 0; i < account_db.size(); i++)
+    {
+        if (account_db[i].getAccountNum() == input_accountNum)
+        {
+            if (account_db[i].verifyPin(input_pin))
+            {
+                return true;
+            }
+            cout << "PIN Is Incorrect" << endl;
+            return false;
+        }
+
+    }
+    cout << "Incorrect Account Number" << endl;
+    return false;
+}
+
+
+
 
 int main()
 {
-    Account account1(253, 1234, 500000);
-    account1.checkBalance();
-    account1.changePIN();
+
+    // HARDCODED ACCOUNTS
+    vector<Account> account_db;
+    account_db.push_back(Account(1, 9999, 50));
+    account_db.push_back(Account(2, 1234, 99));
+    account_db.push_back(Account(3, 5678, 69));
+    account_db.push_back(Account(4, 4321, 420));
+
+
+    cout << "Welcome to OUR ATM Machine" << "\n";
+
+    cout << "Please enter your account number: " ;
+    double input_accountNum; cin >> input_accountNum;
+
+    cout << "Please enter your 4-digit PIN: ";
+    int input_pin; cin >> input_pin;
+
+
+    if (login_System(input_accountNum, input_pin , account_db))
+
+    {
+        // show login menu
+        cout << "Login successful." << endl;
+
+
+    }
+
+
+
 
 }
