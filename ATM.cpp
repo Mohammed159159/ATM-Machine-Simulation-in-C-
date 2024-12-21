@@ -32,8 +32,8 @@ public:
 
     }
     void withdraw(double b) {
-    balance -= b;
-    cout << "Your NEW account balance is: " << balance << endl;
+        balance -= b;
+        cout << "Your NEW account balance is: " << balance << endl;
     }
 
     void changePIN()
@@ -73,7 +73,7 @@ public:
 };
 
 
-bool login_System(double input_accountNum , int input_pin , const vector<Account>& account_db)
+bool login_System(double input_accountNum, int input_pin, const vector<Account>& account_db)
 {
 
     for (int i = 0; i < account_db.size(); i++)
@@ -109,23 +109,25 @@ int main()
 
     cout << "Welcome to OUR ATM Machine" << "\n";
 
-    cout << "Please enter your account number: " ;
+    cout << "Please enter your account number: ";
     double input_accountNum; cin >> input_accountNum;
 
     cout << "Please enter your 4-digit PIN: ";
     int input_pin; cin >> input_pin;
 
 
-    if (login_System(input_accountNum, input_pin , account_db))
+    if (login_System(input_accountNum, input_pin, account_db))
 
     {
         // show login menu
         cout << "Login successful." << endl;
 
+        string menuFunctions[5] = { "Check Balance", "Deposit Money", "Withdraw Money", "Change PIN", "Exit" };
+        for (int i = 0; i < 5; i++)
+        {
+            cout << i + 1 << ". " << menuFunctions[i] << endl;
+        }
 
     }
-
-
-
-
 }
+
