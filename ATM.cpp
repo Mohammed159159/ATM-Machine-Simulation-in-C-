@@ -47,7 +47,7 @@ public:
             int tmp_newPass1, tmp_newPass2;
             cout << "Please enter the New PIN: ";
             cin >> tmp_newPass1;
-            cout << "Please enter the New PIN Again: ";
+            cout << "Please enter the New PIN again: ";
             cin >> tmp_newPass2;
 
             if (tmp_newPass1 == tmp_newPass2)
