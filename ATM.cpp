@@ -126,7 +126,6 @@ int main()
     long input_accountNum;
     int input_pin;
     // We need this to keep track of which account the user is currently using
-    int current_account_index = -1;
     int login_attempts = 0;
 
     // HARDCODED ACCOUNTS
@@ -135,6 +134,8 @@ int main()
     account_db.push_back(Account(2, 1234, 99));
     account_db.push_back(Account(3, 5678, 69));
     account_db.push_back(Account(4, 4321, 420));
+
+    Account active_account(0, 0 , 0);
 
     cout << "Welcome to OUR ATM Machine" << endl;
 
@@ -150,7 +151,7 @@ int main()
             login_attempts++;
         else
         {
-            current_account_index = findAccountIndexByAccountNumber(input_accountNum, account_db);
+            active_account = account_db[findAccountIndexByAccountNumber(input_accountNum, account_db)];
             break;
         }
 
@@ -175,33 +176,25 @@ int main()
         switch (choice)
         {
         case 1:
-            cout << "Your balance is: $" << account_db[current_account_index].getBalance() << endl;
+            cout << "Your balance is: $" << active_account.getBalance() << endl;
             break;
         case 2:
             cout << "Enter amount to deposit: $";
             cin >> amount;
             if (verifyTransaction(amount))
-                account_db[current_account_index].deposit(amount);
+                active_account.deposit(amount);
             break;
         case 3:
             cout << "Enter amount to withdraw: $";
             cin >> amount;
-            if (amount <= 0)
-            {
-                cout << "Please enter a valid amount greater than $0." << endl;
-            }
-            else if (amount <= account_db[current_account_index].getBalance())
-            {
-                account_db[current_account_index].withdraw(amount);
-            }
-            else
-            {
+            if (verifyTransaction(amount) && amount <= active_account.getBalance())
+                active_account.withdraw(amount);
+            else if (amount > active_account.getBalance())
                 cout << "Your balance is insufficient. Your current balance is: $"
-                     << account_db[current_account_index].getBalance() << endl;
-            }
+                     << active_account.getBalance() << endl;
             break;
         case 4:
-            account_db[current_account_index].changePIN();
+            active_account.changePIN();
             break;
         case 5:
             cout << "Thank you for using our ATM. Goodbye!" << endl;
