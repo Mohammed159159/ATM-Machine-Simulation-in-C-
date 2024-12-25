@@ -167,25 +167,23 @@ int main()
     {
 
         printMenuOptions();
-        
+
         cout << "Enter your choice (1-5): ";
         cin >> choice;
+        double amount;
 
-        if (choice == 1)
+        switch (choice)
         {
+        case 1:
             cout << "Your balance is: $" << account_db[current_account_index].getBalance() << endl;
-        }
-        else if (choice == 2)
-        {
-            double amount;
+            break;
+        case 2:
             cout << "Enter amount to deposit: $";
             cin >> amount;
             if (verifyTransaction(amount))
                 account_db[current_account_index].deposit(amount);
-        }
-        else if (choice == 3)
-        {
-            double amount;
+            break;
+        case 3:
             cout << "Enter amount to withdraw: $";
             cin >> amount;
             if (amount <= 0)
@@ -201,19 +199,17 @@ int main()
                 cout << "Your balance is insufficient. Your current balance is: $"
                      << account_db[current_account_index].getBalance() << endl;
             }
-        }
-        else if (choice == 4)
-        {
+            break;
+        case 4:
             account_db[current_account_index].changePIN();
-        }
-        else if (choice == 5)
-        {
+            break;
+        case 5:
             cout << "Thank you for using our ATM. Goodbye!" << endl;
-        }
-        else
-        {
+            break;
+        default:
             cout << "Invalid choice. Please try again." << endl;
         }
+
     } while (choice != 5);
 
     return 0;
