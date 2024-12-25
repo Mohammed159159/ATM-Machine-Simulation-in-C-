@@ -80,7 +80,7 @@ bool verifyTransaction(double amount)
     return amount > 0;
 }
 
-bool login_System(double input_accountNum, int input_pin, const vector<Account> &account_db)
+bool login(double input_accountNum, int input_pin, const vector<Account> &account_db)
 {
 
     for (int i = 0; i < account_db.size(); i++)
@@ -99,10 +99,22 @@ bool login_System(double input_accountNum, int input_pin, const vector<Account> 
     return false;
 }
 
+int findAccountIndexByAccountNumber(long account_number, vector<Account> account_db)
+{
+    for (int i = 0; i < account_db.size(); i++)
+    {
+        if (account_db[i].getAccountNum() == account_number)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
 int main()
 {
 
-    double input_accountNum;
+    long input_accountNum;
     int input_pin;
     // We need this to keep track of which account the user is currently using
     int current_account_index = -1;
@@ -125,16 +137,9 @@ int main()
         cout << "Please enter your 4-digit PIN: ";
         cin >> input_pin;
 
-        for (int i = 0; i < account_db.size(); i++)
-        {
-            if (account_db[i].getAccountNum() == input_accountNum)
-            {
-                current_account_index = i;
-                break;
-            }
-        }
+        current_account_index = findAccountIndexByAccountNumber(input_accountNum, account_db);
 
-        if (!login_System(input_accountNum, input_pin, account_db))
+        if (!login(input_accountNum, input_pin, account_db))
             login_attempts++;
         else
             break;
