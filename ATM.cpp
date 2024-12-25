@@ -3,14 +3,16 @@
 
 using namespace std;
 
-class Account {
+class Account
+{
 private:
     double accountNum;
     int pin;
     double balance;
 
 public:
-    Account(double AccountNum, int Pin, double Balance) {
+    Account(double AccountNum, int Pin, double Balance)
+    {
         accountNum = AccountNum;
         pin = Pin;
         balance = Balance;
@@ -19,19 +21,22 @@ public:
     {
         return balance;
     }
-    double getAccountNum() const {
+    double getAccountNum() const
+    {
         return accountNum;
     }
-    bool verifyPin(int inputPin) const {
+    bool verifyPin(int inputPin) const
+    {
         return pin == inputPin;
     }
 
-    void deposit(double b) {
+    void deposit(double b)
+    {
         balance += b;
         cout << "Your NEW account balance is: " << balance << endl;
-
     }
-    void withdraw(double b) {
+    void withdraw(double b)
+    {
         balance -= b;
         cout << "Your NEW account balance is: " << balance << endl;
     }
@@ -65,15 +70,17 @@ public:
             cout << "Current PIN is incorrect." << endl;
         }
     }
-
-
-
-
-
 };
 
+bool verifyTransaction(double amount)
+{
+    if (amount <= 0)
+        cout << "Please enter a valid amount greater than $0" << endl;
 
-bool login_System(double input_accountNum, int input_pin, const vector<Account>& account_db)
+    return amount > 0;
+}
+
+bool login_System(double input_accountNum, int input_pin, const vector<Account> &account_db)
 {
 
     for (int i = 0; i < account_db.size(); i++)
@@ -84,17 +91,13 @@ bool login_System(double input_accountNum, int input_pin, const vector<Account>&
             {
                 return true;
             }
-            cout << "PIN Is Incorrect" << endl;
+            cout << "Incorrect account number or PIN number" << endl;
             return false;
         }
-
     }
-    cout << "Incorrect Account Number" << endl;
+    cout << "Incorrect account number or PIN number" << endl;
     return false;
 }
-
-
-
 
 int main()
 {
@@ -106,8 +109,7 @@ int main()
     account_db.push_back(Account(3, 5678, 69));
     account_db.push_back(Account(4, 4321, 420));
 
-
-    cout << "Welcome to OUR ATM Machine" << "\n";
+    cout << "Welcome to OUR ATM Machine" << endl;
 
     cout << "Please enter your account number: ";
     double input_accountNum;
@@ -118,70 +120,82 @@ int main()
     cin >> input_pin;
 
     // We need this to keep track of which account the user is currently using
-    int current_account_index = 0;
-    for (int i = 0; i < account_db.size(); i++) {
-        if (account_db[i].getAccountNum() == input_accountNum) {
+    int current_account_index = -1;
+    for (int i = 0; i < account_db.size(); i++)
+    {
+        if (account_db[i].getAccountNum() == input_accountNum)
+        {
             current_account_index = i;
             break;
         }
     }
 
-    if (login_System(input_accountNum, input_pin, account_db)) {
+    if (current_account_index == -1)
+    {
+        cout << "Invalid account number or PIN number!" << endl;
+        return -1;
+    }
+
+    if (login_System(input_accountNum, input_pin, account_db))
+    {
         cout << "Login successful." << endl;
         int choice;
-        do {
-            string menuFunctions[5] = { "Check Balance", "Deposit Money", "Withdraw Money", "Change PIN", "Exit" };
+        do
+        {
+            string menuFunctions[5] = {"Check Balance", "Deposit Money", "Withdraw Money", "Change PIN", "Exit"};
             cout << "\nATM Menu:" << endl;
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 5; i++)
+            {
                 cout << i + 1 << ". " << menuFunctions[i] << endl;
             }
 
             cout << "Enter your choice (1-5): ";
             cin >> choice;
 
-            if (choice == 1) {
+            if (choice == 1)
+            {
                 cout << "Your balance is: $" << account_db[current_account_index].getBalance() << endl;
             }
-            else if (choice == 2) {
+            else if (choice == 2)
+            {
                 double amount;
                 cout << "Enter amount to deposit: $";
                 cin >> amount;
-                if (amount > 0) {
+                if (verifyTransaction(amount))
                     account_db[current_account_index].deposit(amount);
-                }
-                else {
-                    cout << "Please enter a valid amount greater than $0." << endl;
-                }
             }
-            else if (choice == 3) {
+            else if (choice == 3)
+            {
                 double amount;
                 cout << "Enter amount to withdraw: $";
                 cin >> amount;
-                if (amount <= 0) {
+                if (amount <= 0)
+                {
                     cout << "Please enter a valid amount greater than $0." << endl;
                 }
-                else if (amount <= account_db[current_account_index].getBalance()) {
+                else if (amount <= account_db[current_account_index].getBalance())
+                {
                     account_db[current_account_index].withdraw(amount);
                 }
-                else {
+                else
+                {
                     cout << "Your balance is insufficient. Your current balance is: $"
-                        << account_db[current_account_index].getBalance() << endl;
+                         << account_db[current_account_index].getBalance() << endl;
                 }
             }
-            else if (choice == 4) {
+            else if (choice == 4)
+            {
                 account_db[current_account_index].changePIN();
             }
-            else if (choice == 5) {
+            else if (choice == 5)
+            {
                 cout << "Thank you for using our ATM. Goodbye!" << endl;
             }
-            else {
+            else
+            {
                 cout << "Invalid choice. Please try again." << endl;
             }
         } while (choice != 5);
     }
     return 0;
-
-
-
-
 }
