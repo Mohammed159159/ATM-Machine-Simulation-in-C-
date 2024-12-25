@@ -111,6 +111,15 @@ int findAccountIndexByAccountNumber(long account_number, vector<Account> account
     return -1;
 }
 
+void printMenuOptions()
+{
+    string menuFunctions[5] = {"Check Balance", "Deposit Money", "Withdraw Money", "Change PIN", "Exit"};
+    cout << "\nATM Menu:" << endl;
+    for (int i = 0; i < 5; i++)
+    {
+        cout << i + 1 << ". " << menuFunctions[i] << endl;
+    }
+}
 int main()
 {
 
@@ -137,12 +146,13 @@ int main()
         cout << "Please enter your 4-digit PIN: ";
         cin >> input_pin;
 
-        current_account_index = findAccountIndexByAccountNumber(input_accountNum, account_db);
-
         if (!login(input_accountNum, input_pin, account_db))
             login_attempts++;
         else
+        {
+            current_account_index = findAccountIndexByAccountNumber(input_accountNum, account_db);
             break;
+        }
 
         if (login_attempts >= 3)
         {
@@ -151,17 +161,13 @@ int main()
         }
     }
 
-    cout << "Login successful." << endl;
+    cout << "Login successful!" << endl;
     int choice;
     do
     {
-        string menuFunctions[5] = {"Check Balance", "Deposit Money", "Withdraw Money", "Change PIN", "Exit"};
-        cout << "\nATM Menu:" << endl;
-        for (int i = 0; i < 5; i++)
-        {
-            cout << i + 1 << ". " << menuFunctions[i] << endl;
-        }
 
+        printMenuOptions();
+        
         cout << "Enter your choice (1-5): ";
         cin >> choice;
 
