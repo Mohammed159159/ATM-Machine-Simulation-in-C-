@@ -6,12 +6,12 @@ using namespace std;
 class Account
 {
 private:
-    double accountNum;
+    long accountNum;
     int pin;
     double balance;
 
 public:
-    Account(double AccountNum, int Pin, double Balance)
+    Account(long AccountNum, int Pin, double Balance)
     {
         accountNum = AccountNum;
         pin = Pin;
@@ -21,7 +21,7 @@ public:
     {
         return balance;
     }
-    double getAccountNum() const
+    long getAccountNum() const
     {
         return accountNum;
     }
@@ -33,12 +33,12 @@ public:
     void deposit(double b)
     {
         balance += b;
-        cout << "Your NEW account balance is: " << balance << endl;
+        cout << "Your NEW account balance is: $" << balance << endl;
     }
     void withdraw(double b)
     {
         balance -= b;
-        cout << "Your NEW account balance is: " << balance << endl;
+        cout << "Your NEW account balance is: $" << balance << endl;
     }
 
     void changePIN()
@@ -80,7 +80,7 @@ bool verifyTransaction(double amount)
     return amount > 0;
 }
 
-bool login(double input_accountNum, int input_pin, const vector<Account> &account_db)
+bool login(long input_accountNum, int input_pin, const vector<Account>& account_db)
 {
 
     for (int i = 0; i < account_db.size(); i++)
@@ -113,7 +113,7 @@ int findAccountIndexByAccountNumber(long account_number, vector<Account> account
 
 void printMenuOptions()
 {
-    string menuFunctions[5] = {"Check Balance", "Deposit Money", "Withdraw Money", "Change PIN", "Exit"};
+    string menuFunctions[5] = { "Check Balance", "Deposit Money", "Withdraw Money", "Change PIN", "Exit" };
     cout << "\nATM Menu:" << endl;
     for (int i = 0; i < 5; i++)
     {
@@ -130,12 +130,12 @@ int main()
 
     // HARDCODED ACCOUNTS
     vector<Account> account_db;
-    account_db.push_back(Account(1, 9999, 50));
-    account_db.push_back(Account(2, 1234, 99));
-    account_db.push_back(Account(3, 5678, 69));
-    account_db.push_back(Account(4, 4321, 420));
+    account_db.push_back(Account(1L, 9999, 50));
+    account_db.push_back(Account(2L, 1234, 99));
+    account_db.push_back(Account(3L, 5678, 69));
+    account_db.push_back(Account(4L, 4321, 420));
 
-    Account active_account(0, 0 , 0);
+    Account active_account(0L, 0, 0);
 
     cout << "Welcome to OUR ATM Machine" << endl;
 
@@ -191,7 +191,7 @@ int main()
                 active_account.withdraw(amount);
             else if (amount > active_account.getBalance())
                 cout << "Your balance is insufficient. Your current balance is: $"
-                     << active_account.getBalance() << endl;
+                << active_account.getBalance() << endl;
             break;
         case 4:
             active_account.changePIN();
